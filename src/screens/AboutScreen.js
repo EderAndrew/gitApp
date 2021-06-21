@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, View, Image, StyleSheet} from 'react-native';
+import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 //Components
 import Loading from '../components/Loading';
+import CardAbout from '../components/CardAbout';
 
 const AboutScreen = ({route, navigation}) => {
   const {name} = route.params;
@@ -30,21 +32,22 @@ const AboutScreen = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {loadAbout && <Loading />}
-      {!loadAbout && (
-        <View>
-          <Text>Tela Sobre</Text>
-          <Image
-            style={styles.imgAvatar}
-            source={{uri: uniqueUser.avatar_url}}
-          />
-          <Text>Login: {uniqueUser.login}</Text>
-          <Text>Name: {uniqueUser.name}</Text>
-          <Text>Company: {uniqueUser.company}</Text>
-          <Text>Followers: {uniqueUser.followers}</Text>
-          <Text>Following: {uniqueUser.following}</Text>
-        </View>
-      )}
+      <LinearGradient style={styles.gradient} colors={['#82B4FF', '#FA756C']}>
+        {loadAbout && <Loading />}
+        {!loadAbout && (
+          <>
+            <Text style={styles.TitleUser}>{uniqueUser.login}</Text>
+            <CardAbout
+              avatar={uniqueUser.avatar_url}
+              login={uniqueUser.login}
+              name={uniqueUser.name}
+              company={uniqueUser.company}
+              followers={uniqueUser.followers}
+              following={uniqueUser.following}
+            />
+          </>
+        )}
+      </LinearGradient>
     </SafeAreaView>
   );
 };
@@ -52,10 +55,19 @@ const AboutScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FFC978',
   },
-  imgAvatar: {
-    width: 80,
-    height: 80,
+  gradient: {
+    flex:1,
+    width: '100%',
+    alignItems:'center',
+  },
+  TitleUser: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginTop: 40,
+    color: '#fff',
   },
 });
 export default AboutScreen;

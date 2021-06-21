@@ -9,7 +9,7 @@ import AboutScreen from '../screens/AboutScreen';
 const Stack = createStackNavigator();
 
 export default () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={{headerShown: false}}>
     <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
     <Stack.Screen name="About" component={AboutScreen} />
   </Stack.Navigator>
